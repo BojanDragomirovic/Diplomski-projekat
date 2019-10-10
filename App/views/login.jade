@@ -1,0 +1,69 @@
+
+html
+  head
+    title What to watch
+    link(rel="stylesheet" href="https://unpkg.com/tachyons@4.10.0/css/tachyons.min.css")
+  body.sans-serif.center
+    div.pe4.tc
+    header.bg-gold.sens-self
+      img.br-100.h3.w3(src="https://kubernetes.io/images/favicon.png", alt="logo")
+      div.mw9.center.pa4.pt5-ns.ph7-l
+        time.f6.mb2.dib.ttu.tracked
+          small 1 octobar, 2019
+        h3.f2.f1-m.f-headline-l.measure-narrow.lh-title.mv0
+          span.bg-black-90.lh-copy.white.pa1.tracked-tight Koji film gledati veceras?
+        h4.f3.fw1.georgia.i Stranica na kojoj mozete naci predloge i misljenja drugih o najnovijim filmskim naslovima
+        h5.f6.ttu.tracked.black-80 BY BOJAN DRAGOMIROVIC
+
+
+    div.sans-serif
+      nav.bg-white.mw8.center.pa3
+        div.tc.pb3
+          form(action="/" method="post") 
+            input.f6.f5-l.button-reset.fl.pv3.tc.bn.bg-animate.bg-black-70.hover-bg-black.white.pointer.w-100.w-25-m.w-20-l.br2-ns.br--left-ns(type="submit" value="Home" name="delete")
+          form(action="/insert-page" method="post")
+            input.f6.f5-l.button-reset.fl.pv3.tc.bn.bg-animate.bg-black-70.hover-bg-black.white.pointer.w-100.w-25-m.w-20-l.br2-ns.br--left-ns.br--right-ns(type="submit" value="Dodajte komentar" name="delete")
+          form(action="/delete-page" method="post") 
+            input.f6.f5-l.button-reset.fl.pv3.tc.bn.bg-animate.bg-black-70.hover-bg-black.white.pointer.w-100.w-25-m.w-20-l.br2-ns.br--left-ns.br--right-ns(type="submit" value="Obrisite komentar" name="delete")
+          form(action="/update-page" method="post") 
+            input.f6.f5-l.button-reset.fl.pv3.tc.bn.bg-animate.bg-black-70.hover-bg-black.white.pointer.w-100.w-25-m.w-20-l.br2-ns.br--right-ns.br--left-ns(type="submit" value="Azurirajte komentar" name="delete")
+          if ulogovan == false
+            form(action="/login-page" method="post") 
+              input.f6.f5-l.button-reset.fl.pv3.tc.bn.bg-animate.bg-black-70.hover-bg-black.white.pointer.w-100.w-25-m.w-20-l.br2-ns.br--right-ns(type="submit" value="Log In" name="delete")
+          else
+            form(action="/logout" method="post") 
+              input.f6.f5-l.button-reset.fl.pv3.tc.bn.bg-animate.bg-black-70.hover-bg-black.white.pointer.w-100.w-25-m.w-20-l.br2-ns.br--right-ns(type="submit" value="Log out" name="delete")
+ 
+
+
+    div.pa4-l.sans-serif
+        form.bg-light-gray.mw8.center.pa4.br2-ns.ba.b--black-10(action="/login" method="post" enctype="multipart/form-data")
+          fieldset.cf.bn.ma0.pa0
+            legend.pa0.f5.f4-ns.mb3.black-80 Log in
+            div.cf 
+              label.clip(for="name") Name:
+              input.f6.f5-l.input-reset.bn.fl.black-80.bg-white.pa3.lh-solid.w-100.w-100-m.w-100-l.br2-ns.mv1(type="text" name="name" placeholder="korisnicko ime")  
+            div.cf 
+              label.clip(for="rate") Password:
+              input.f6.f5-l.input-reset.bn.fl.black-80.bg-white.pa3.lh-solid.w-100.w-75-m.w-80-l.br2-ns.mv1(type="password" name="password" placeholder="password")
+              input.f6.f5-l.button-reset.fl.pv3.tc.bn.bg-animate.bg-black-70.hover-bg-black.white.pointer.w-100.w-25-m.w-20-l.br2-ns.br--right-ns.mv1(type="submit" value="Log In" name="insert")
+              br
+
+    div.pa4-l.sans-serif
+        form.bg-light-gray.mw8.center.pa4.br2-ns.ba.b--black-10(action="/insert-user" method="post" enctype="multipart/form-data")
+          fieldset.cf.bn.ma0.pa0
+            legend.pa0.f5.f4-ns.mb3.black-80 Sign Up
+            div.cf 
+              label.clip(for="name") Name:
+              input.f6.f5-l.input-reset.bn.fl.black-80.bg-white.pa3.lh-solid.w-100.w-100-m.w-100-l.br2-ns.mv1(type="text" name="name" placeholder="korisnicko ime")  
+            div.cf 
+              label.clip(for="rate") Password:
+              input.f6.f5-l.input-reset.bn.fl.black-80.bg-white.pa3.lh-solid.w-100.w-75-m.w-100-l.br2-ns.mv1(type="password" name="password" placeholder="password")
+            div.cf 
+              label.clip(for="name") Status:
+              input.f6.f5-l.input-reset.bn.fl.black-80.bg-white.pa3.lh-solid.w-100.w-100-m.w-100-l.br2-ns.mv1(type="text" name="status" placeholder="status: user ili superuser") 
+            div.cf 
+              label.clip(for="name") Mail:
+              input.f6.f5-l.input-reset.bn.fl.black-80.bg-white.pa3.lh-solid.w-100.w-100-m.w-80-l.br2-ns.mv1(type="text" name="mail" placeholder="mail adresa") 
+              
+              input.f6.f5-l.button-reset.fl.pv3.tc.bn.bg-animate.bg-black-70.hover-bg-black.white.pointer.w-100.w-25-m.w-20-l.br2-ns.br--right-ns.mv1(type="submit" value="Sign Up" name="insert")

@@ -1,0 +1,93 @@
+
+html
+  head
+    title What to watch
+    link(rel="stylesheet" href="https://unpkg.com/tachyons@4.10.0/css/tachyons.min.css")
+  body.sans-serif.center
+    header.bg-gold.sens-self
+      img.br-100.h3.w3(src="https://kubernetes.io/images/favicon.png", alt="logo")
+      div.mw9.center.pa4.pt5-ns.ph7-l
+        time.f6.mb2.dib.ttu.tracked
+          small 1 octobar, 2019
+        h3.f2.f1-m.f-headline-l.measure-narrow.lh-title.mv0
+          span.bg-black-90.lh-copy.white.pa1.tracked-tight Koji film gledati veceras?
+        h4.f3.fw1.georgia.i Stranica na kojoj mozete naci predloge i misljenja drugih o najnovijim filmskim naslovima
+        h5.f6.ttu.tracked.black-80 BY BOJAN DRAGOMIROVIC
+
+
+    div.sans-serif
+      nav.bg-white.mw8.center.pa3
+        div.tc.pb3
+          form(action="/" method="post") 
+            input.f6.f5-l.button-reset.fl.pv3.tc.bn.bg-animate.bg-black-70.hover-bg-black.white.pointer.w-100.w-25-m.w-20-l.br2-ns.br--left-ns(type="submit" value="Home" name="delete")
+          form(action="/insert-page" method="post")
+            input.f6.f5-l.button-reset.fl.pv3.tc.bn.bg-animate.bg-black-70.hover-bg-black.white.pointer.w-100.w-25-m.w-20-l.br2-ns.br--left-ns.br--right-ns(type="submit" value="Dodajte komentar" name="delete")
+          form(action="/delete-page" method="post") 
+            input.f6.f5-l.button-reset.fl.pv3.tc.bn.bg-animate.bg-black-70.hover-bg-black.white.pointer.w-100.w-25-m.w-20-l.br2-ns.br--left-ns.br--right-ns(type="submit" value="Obrisite komentar" name="delete")
+          form(action="/update-page" method="post") 
+            input.f6.f5-l.button-reset.fl.pv3.tc.bn.bg-animate.bg-black-70.hover-bg-black.white.pointer.w-100.w-25-m.w-20-l.br2-ns.br--right-ns.br--left-ns(type="submit" value="Azurirajte komentar" name="delete")
+          if ulogovan == false
+            form(action="/login-page" method="post") 
+              input.f6.f5-l.button-reset.fl.pv3.tc.bn.bg-animate.bg-black-70.hover-bg-black.white.pointer.w-100.w-25-m.w-20-l.br2-ns.br--right-ns(type="submit" value="Log In" name="delete")
+          else
+            form(action="/logout" method="post") 
+              input.f6.f5-l.button-reset.fl.pv3.tc.bn.bg-animate.bg-black-70.hover-bg-black.white.pointer.w-100.w-25-m.w-20-l.br2-ns.br--right-ns(type="submit" value="Log out" name="delete")
+ 
+
+    if ulogovan == true
+      div.pa4-l.sans-serif
+        form.bg-light-gray.mw8.center.pa4.br2-ns.ba.b--black-10(action="/update" method="post" enctype="multipart/form-data")
+          fieldset.cf.bn.ma0.pa0
+            legend.pa0.f5.f4-ns.mb3.black-80.fb6 Dodajte komentar
+            div.cf 
+              label.clip(for="name") Name:
+              input.f6.f5-l.input-reset.bn.fl.black-80.bg-white.pa3.lh-solid.w-100.w-100-m.w-100-l.br2-ns.mv1(type="text" name="name" placeholder="naziv filma")  
+            div.cf 
+              label.clip(for="year") Year:
+              input.f6.f5-l.input-reset.bn.fl.black-80.bg-white.pa3.lh-solid.w-100.w-100-m.w-100-l.br2-ns.mv1(type="number" name="year" placeholder="godina premijere filma") 
+            div.cf 
+              label.clip(for="casts") Cast:
+              textarea.f6.f5-l.input-reset.bn.fl.black-80.bg-white.pa3.lh-solid.w-100.w-100-m.w-100-l.br2-ns.mv1(rows="10" name="casts" placeholder="glumci").form-control
+            div.cf 
+              label.clip(for="description") Your impression:
+              textarea.f6.f5-l.input-reset.bn.fl.black-80.bg-white.pa3.lh-solid.w-100.w-100-m.w-100-l.br2-ns.mv1(rows="15" name="description" placeholder="vasi utisci o filmu").form-control
+            div.cf 
+              label.clip(for="rate") Rate:
+              input.f6.f5-l.input-reset.bn.fl.black-80.bg-white.pa3.lh-solid.w-100.w-75-m.w-100-l.br2-ns.mv1(type="number" name="rate" placeholder="ocenite film od 1 do 10")
+            div.cf 
+              label.clip(for="id") ID:
+              input.f6.f5-l.input-reset.bn.fl.black-80.bg-white.pa3.lh-solid.w-100.w-75-m.w-80-l.br2-ns.br--left-ns.mv1(type="text" name="id" placeholder="id komentara koji brisete") 
+              input.f6.f5-l.button-reset.fl.pv3.tc.bn.bg-animate.bg-black-70.hover-bg-black.white.pointer.w-100.w-25-m.w-20-l.br2-ns.br--right-ns.mv1(type="submit" value="Update" name="update")
+
+      if reviews.length > 0
+        h4.center.mw8.mw8-ns.br3.hidden.ba.b--black-10.mv4 
+        each item in reviews
+          article.center.mw8.mw8-ns.br3.hidden.ba.b--black-10.mv4
+            h1.f4.bg-near-white.br3.br--top.black-60.mv0.pv2.ph3=item.name
+            div.pa3.bt.b--black-10
+
+              div
+                h4.black-60 ID:
+                p.w-20.f6.f5-ns.lh-copy.measure=item._id 
+              div
+                h4.black-60 Ocena:
+                p.f6.f5-ns.lh-copy.measure=item.rate
+              div
+                h4.black-60 Godina izlaska:
+                p.f6.f5-ns.lh-copy.measure=item.year
+              div
+                h4.black-60 Glumacka ekipa:
+                p.f6.f5-ns.lh-copy.measure=item.casts
+              div
+                h4.black-60 Utisci korisnika:
+                p.f6.f5-ns.lh-copy.measure=item.description
+      else
+        h4.center.mw8.mw8-ns.br3.hidden.ba.b--black-10.mv4 
+        article.center.mw8.mw8-ns.br3.hidden.ba.b--black-10.mv4
+            h1.f4.bg-near-white.br3.br--top.black-60.mv0.pv2.ph3 Trenutno nema komentara.
+    else
+        article.center.mw8.mw8-ns.br3.hidden.ba.b--black-10.mv4
+          h1.f4.bg-near-white.br3.br--top.black-60.mv0.pv2.ph3 Morete posedovati nalog da biste pristupilo ovim funkcijama.
+
+
+

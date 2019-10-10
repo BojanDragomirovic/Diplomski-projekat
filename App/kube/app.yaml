@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: movie
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: movie
+  template:
+    metadata:
+      labels:
+        app: movie
+    spec:
+      containers:
+        - name: app
+          image: app:v2
+          ports:
+            - containerPort: 5004
+          env:
+            - name: MONGO_APP_URL
+              value: http://192.168.99.100:31552/
+            - name: MYSQL_APP_URL
+              value: http://192.168.99.100:32421/
+
+
+          imagePullPolicy: Never
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: movie
+spec:
+  selector:
+    app: movie
+  ports:
+    - port: 83
+      targetPort: 5004
+  type: LoadBalancer

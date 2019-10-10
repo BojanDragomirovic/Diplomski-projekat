@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: msmongo
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: msmongo
+  template:
+    metadata:
+      labels:
+        app: msmongo
+    spec:
+      containers:
+        - name: app
+          image: msmongo:v1
+          ports:
+            - containerPort: 5003
+          env:
+            - name: MONGO_URL
+              value: mongodb://mongo:27017/dev
+          imagePullPolicy: Never
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: msmongo
+spec:
+  selector:
+    app: msmongo
+  ports:
+    - port: 80
+      targetPort: 5003
+  type: LoadBalancer

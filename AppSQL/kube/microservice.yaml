@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mssql
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mssql
+  template:
+    metadata:
+      labels:
+        app: mssql
+    spec:
+      containers:
+        - name: app
+          image: mssql:v1
+          ports:
+            - containerPort: 5002
+          env:
+            - name: MYSQL_HOST
+              value: mysql
+            - name: MYSQL_USER
+              value: root
+            - name: MYSQL_PASS
+              value: password
+            - name: MYSQL_DB
+              value: data
+
+          imagePullPolicy: Never
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mssql
+spec:
+  selector:
+    app: mssql
+  ports:
+    - port: 81
+      targetPort: 5002
+  type: LoadBalancer
